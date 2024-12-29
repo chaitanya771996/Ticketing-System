@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Crypt;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'personal_info'
     ];
 
     /**
@@ -33,6 +36,18 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function setPersonalInfoAttribute($value)
+    {
+        $this->attributes['personal_info'] = Crypt::encryptString($value);
+    }
+
+    /**
+     * Decrypt the personal_info when retrieving from the database.
+     */
+    public function getPersonalInfoAttribute($value)
+    {
+        return $value ? Crypt::decryptString($value) : null;
+    }
     /**
      * Get the attributes that should be cast.
      *

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('role')->default('attendee')->comment('attendee | organizer');
+            $table->text('personal_info')->nullable(); // Encrypted personal info
             $table->rememberToken();
             $table->timestamps();
         });
