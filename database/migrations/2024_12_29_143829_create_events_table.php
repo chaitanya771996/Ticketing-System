@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users'); // Organizer ID
             $table->string('title');
             $table->text('description');
-            $table->date('date');
+            $table->string('date');
             $table->string('location');
             $table->integer('ticket_availability');
             $table->timestamps();

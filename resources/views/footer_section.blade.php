@@ -1,14 +1,10 @@
 </main>
       
     
-<footer class="app-footer">
-
-  <div class="float-end d-none d-sm-inline">Anything you want</div>
-  
+<footer class="app-footer">  
 
   <strong>
-    Copyright &copy; 2014-2024&nbsp;
-    <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+    Copyright &copy; 2024&nbsp;
   </strong>
   All rights reserved.
   
@@ -35,6 +31,8 @@ src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
 integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
 crossorigin="anonymous"
 ></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="../../../dist/js/adminlte.js"></script>
 

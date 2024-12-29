@@ -4,6 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Ticket System | Sidebar Mini</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="title" content="Ticket System | Sidebar Mini" />
@@ -85,14 +86,17 @@
                   />
                   <p>
                     {{ auth()->user()->name }} - {{ auth()->user()->role }}
-                    <small>{{ date("d M Y h:i a", strtotime(auth()->user()->created_at)) }}</small>
+                    {{-- <small>{{ date("d M Y h:i a", strtotime(auth()->user()->created_at)) }}</small> --}}
                   </p>
                 </li>
             
-                <li class="user-footer">
-                  <a href="/profile" class="btn btn-default btn-flat">Profile</a>
-                  <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
-                </li>
+                <li class="user-footer d-flex justify-content-between">
+                    <a href="/profile" class="btn btn-default btn-flat">Profile</a>
+                    <form action="{{ route('logout') }}" method="post">
+                      @csrf
+                      <button class="btn btn-default" type="submit">Sign out</button>
+                    </form>
+                  </li>                  
                 
               </ul>
             </li>
@@ -134,28 +138,36 @@
               data-accordion="false"
             >
             <li class="nav-item">
+              <a href="/home" class="nav-link">
+                <i class="nav-icon bi bi-ui-checks-grid"></i>
+                <p>Home</p>
+              </a>
+            </li>
+            @if(auth()->user()->role != 'attendee')
+            <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-ui-checks-grid"></i>
                   <p>
-                    Ticket Summary
+                    Events Summary
                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="../docs/components/main-header.html" class="nav-link">
+                    <a href="/events" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>View</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="../docs/components/main-sidebar.html" class="nav-link">
+                    <a href="/events/create" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Add</p>
                     </a>
                   </li>
                 </ul>
               </li>
+              @endif
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-ui-checks-grid"></i>
@@ -166,7 +178,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="../docs/components/main-header.html" class="nav-link">
+                    <a href="/tickets" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>View</p>
                     </a>

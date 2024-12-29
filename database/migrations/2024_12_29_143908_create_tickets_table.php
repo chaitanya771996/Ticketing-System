@@ -9,23 +9,26 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('event_id')->constrained('events');
-            $table->string('type'); // early bird, regular, VIP
-            $table->decimal('price', 10, 2);
+            $table->unsignedBigInteger('event_id');
+            $table->unsignedBigInteger('user_id');
             $table->integer('quantity');
+            $table->decimal('total_price', 10, 2);
+            $table->string('payment_id');
             $table->timestamps();
+
+            // Foreign key relationships
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('tickets');
     }
+
 };
